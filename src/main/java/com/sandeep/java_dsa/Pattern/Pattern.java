@@ -2,7 +2,7 @@ package com.sandeep.java_dsa.Pattern;
 
 public class Pattern {
     public static void main(String[] args) {
-        int n=5;
+        int n = 5;
 //        System.out.println("--------com.sandeep.java_dsa.Pattern 1---------");
 //        Pattern1(n);
 //        System.out.println("--------com.sandeep.java_dsa.Pattern 2---------");
@@ -52,16 +52,17 @@ public class Pattern {
 //    private static void com.sandeep.java_dsa.Pattern(int n){}
 
     private static void Pattern5(int n) {
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=(n-i+1);j++){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= (n - i + 1); j++) {
                 System.out.print("*");
             }
             System.out.println();
         }
     }
+
     private static void Pattern6(int n) {
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=(n-i+1);j++){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= (n - i + 1); j++) {
                 System.out.print(j);
             }
             System.out.println();

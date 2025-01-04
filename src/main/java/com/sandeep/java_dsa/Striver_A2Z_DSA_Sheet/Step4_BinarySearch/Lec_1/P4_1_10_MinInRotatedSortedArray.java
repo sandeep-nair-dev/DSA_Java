@@ -1,7 +1,7 @@
 package com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step4_BinarySearch.Lec_1;
 
 public class P4_1_10_MinInRotatedSortedArray {
-    public static int findMinOptimal(int []arr) {
+    public static int findMinOptimal(int[] arr) {
         int low = 0, high = arr.length - 1;
         int ans = Integer.MAX_VALUE;
         while (low <= high) {
@@ -36,7 +36,7 @@ public class P4_1_10_MinInRotatedSortedArray {
     }
 
 
-    public static int findMinBetter(int []arr) {
+    public static int findMinBetter(int[] arr) {
         int low = 0, high = arr.length - 1;
         int ans = Integer.MAX_VALUE;
         while (low <= high) {

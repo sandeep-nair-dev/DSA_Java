@@ -7,12 +7,12 @@ public class P4_3_3_SearchInRowAndColumnSorted2DMatrix {
 
     public static boolean searchElement(ArrayList<ArrayList<Integer>> matrix, int target) {
         int row = 0;
-        int col = matrix.get(0).size()-1;
-        while(row<matrix.size() && col>=0){
-            if(matrix.get(row).get(col)==target) return true;       //for getting index, return row, col
-            else if(matrix.get(row).get(col)<target){
+        int col = matrix.get(0).size() - 1;
+        while (row < matrix.size() && col >= 0) {
+            if (matrix.get(row).get(col) == target) return true;       //for getting index, return row, col
+            else if (matrix.get(row).get(col) < target) {
                 row++;
-            }else{
+            } else {
                 col--;
             }
         }

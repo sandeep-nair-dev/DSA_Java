@@ -16,83 +16,83 @@ public class CollectionsFramework {
 //        LearnTreeMap();
     }
 
-    static void LearnTreeMap(){
+    static void LearnTreeMap() {
         Map<String, Integer> map = new TreeMap<>();  //Now entries sorted based on keys
 
-        map.put("One",1);
-        map.put("Two",2);
-        map.put("Three",3);
-        map.put("Four",4);
-        map.put("Five",5);
+        map.put("One", 1);
+        map.put("Two", 2);
+        map.put("Three", 3);
+        map.put("Four", 4);
+        map.put("Five", 5);
 
         System.out.println(map);
 
         System.out.println(map.isEmpty());
         System.out.println(map.containsKey("Two"));
         System.out.println(map.containsValue(3));
-        if(!map.containsKey("Six")){
-            map.put("Six",6);
+        if (!map.containsKey("Six")) {
+            map.put("Six", 6);
         }
-        map.putIfAbsent("Seven",7);
-        map.putIfAbsent("Seven",99);        // doesnt overwrite the value since entry with key "Seven" already exists
+        map.putIfAbsent("Seven", 7);
+        map.putIfAbsent("Seven", 99);        // doesnt overwrite the value since entry with key "Seven" already exists
         System.out.println(map);
 
         map.remove("Five");
         System.out.println(map);
 
-        for(Map.Entry<String, Integer> e: map.entrySet()){
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
             System.out.println(e);
             System.out.println("KEY: " + e.getKey() + " VALUE: " + e.getValue());
         }
         System.out.println("Keys:");
-        for (String key: map.keySet()){
+        for (String key : map.keySet()) {
             System.out.println(key);
         }
         System.out.println("Values:");
-        for (Integer val: map.values()){
+        for (Integer val : map.values()) {
             System.out.println(val);
         }
     }
 
-    static void LearnHashMap(){
+    static void LearnHashMap() {
         Map<String, Integer> map = new HashMap<>();
 
-        map.put("One",1);
-        map.put("Two",2);
-        map.put("Three",3);
-        map.put("Four",4);
-        map.put("Five",5);
+        map.put("One", 1);
+        map.put("Two", 2);
+        map.put("Three", 3);
+        map.put("Four", 4);
+        map.put("Five", 5);
 
         System.out.println(map);
 
         System.out.println(map.isEmpty());
         System.out.println(map.containsKey("Two"));
         System.out.println(map.containsValue(3));
-        if(!map.containsKey("Six")){
-            map.put("Six",6);
+        if (!map.containsKey("Six")) {
+            map.put("Six", 6);
         }
-        map.putIfAbsent("Seven",7);
-        map.putIfAbsent("Seven",99);        // doesnt overwrite the value since entry with key "Seven" already exists
+        map.putIfAbsent("Seven", 7);
+        map.putIfAbsent("Seven", 99);        // doesnt overwrite the value since entry with key "Seven" already exists
         System.out.println(map);
 
         map.remove("Five");
         System.out.println(map);
 
-        for(Map.Entry<String, Integer> e: map.entrySet()){
+        for (Map.Entry<String, Integer> e : map.entrySet()) {
             System.out.println(e);
             System.out.println("KEY: " + e.getKey() + " VALUE: " + e.getValue());
         }
         System.out.println("Keys:");
-        for (String key: map.keySet()){
+        for (String key : map.keySet()) {
             System.out.println(key);
         }
         System.out.println("Values:");
-        for (Integer val: map.values()){
+        for (Integer val : map.values()) {
             System.out.println(val);
         }
     }
 
-    static void LearnTreeSet(){
+    static void LearnTreeSet() {
         Set<Integer> set = new TreeSet<>();
 // in  LinkedHashSet, elements are stored in hash form and also has properties of Binary Search Tree, so elements are in sorted form
         // Time complexity of operations like clear, find, add -> O(logn)
@@ -113,7 +113,8 @@ public class CollectionsFramework {
         set.clear();
         System.out.println(set.isEmpty());
     }
-    static void LearnLinkedHashSet(){
+
+    static void LearnLinkedHashSet() {
         Set<Integer> set = new LinkedHashSet<>();
 // in  LinkedHashSet, elements are stored in hash form and also has properties of linkedlist, so elements are stored in the order they are inputted
         set.add(1);
@@ -133,7 +134,8 @@ public class CollectionsFramework {
         set.clear();
         System.out.println(set.isEmpty());
     }
-    static void LearnHashSet(){
+
+    static void LearnHashSet() {
         Set<Integer> set = new HashSet<>();
 // in  hashset, elements are stored in hash form, so in Hashset elements are stored in random order and there is no definite order
         // Time complexity of operations like clear, find, add -> O(1)
@@ -155,7 +157,7 @@ public class CollectionsFramework {
         System.out.println(set.isEmpty());
     }
 
-    static void Stack(){
+    static void Stack() {
         Stack<String> itemStack = new Stack<>();
         itemStack.push("item1");
         itemStack.push("item2");
@@ -170,7 +172,7 @@ public class CollectionsFramework {
         System.out.println(itemStack);
     }
 
-    static void QueueUsingLinkedList(){
+    static void QueueUsingLinkedList() {
         // add/offer -> iff unsuccessful, add throws exception but offer just returns false
         // element/peek -> iff unsuccessful, element throws exception but peek just returns false
         // remove/poll -> iff unsuccessful, remove throws exception but poll just returns false
@@ -190,7 +192,7 @@ public class CollectionsFramework {
         System.out.println(queue);
     }
 
-    static void LearnArrayDeque(){
+    static void LearnArrayDeque() {
         ArrayDeque<Integer> ad = new ArrayDeque<>();
         ad.offer(33);       // by default adds to last like in queue
         ad.offerFirst(66);
@@ -210,7 +212,7 @@ public class CollectionsFramework {
         System.out.println(ad);
     }
 
-    static void PriorityQueue(){
+    static void PriorityQueue() {
 //        Queue<Integer> priorityQueue = new PriorityQueue<>();
 //        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();   //By default implements minheap
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.reverseOrder());   //Now implements maxheap
@@ -224,7 +226,8 @@ public class CollectionsFramework {
         System.out.println(priorityQueue);
         System.out.println(priorityQueue.peek());
     }
-    static void listAndIterator(){
+
+    static void listAndIterator() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
@@ -235,7 +238,7 @@ public class CollectionsFramework {
         System.out.println(list);
 
         Iterator<Integer> it = list.iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             System.out.println("iterator" + it.next());
         }
     }

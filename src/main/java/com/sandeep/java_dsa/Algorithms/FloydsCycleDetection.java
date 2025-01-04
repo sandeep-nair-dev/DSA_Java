@@ -18,7 +18,7 @@ public class FloydsCycleDetection {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{1,3,4,2,2};
+        int[] arr = new int[]{1, 3, 4, 2, 2};
         int duplicate = floydCycleDetection(arr);
         System.out.println(duplicate);
     }
