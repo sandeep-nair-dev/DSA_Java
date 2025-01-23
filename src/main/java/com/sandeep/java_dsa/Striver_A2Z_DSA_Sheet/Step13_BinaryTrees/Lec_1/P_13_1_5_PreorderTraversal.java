@@ -19,7 +19,7 @@ public class P_13_1_5_PreorderTraversal {
             return;
         }
 
-        preOrder.add(root.data);
+        preOrder.add(root.val);
         preOrderTraversal(root.left, preOrder);
         preOrderTraversal(root.right, preOrder);
     }

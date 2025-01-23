@@ -17,7 +17,7 @@ public class P_13_1_6_InOrderTraversal {
         if(root==null) return;
 
         inOrderTraversal(root.left, inOrder);
-        inOrder.add(root.data);
+        inOrder.add(root.val);
         inOrderTraversal(root.right, inOrder);
     }
 
