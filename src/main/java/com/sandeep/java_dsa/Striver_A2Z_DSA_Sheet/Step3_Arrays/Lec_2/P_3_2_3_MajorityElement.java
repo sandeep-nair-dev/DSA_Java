@@ -1,6 +1,6 @@
 package com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step3_Arrays.Lec_2;
 
-public class P_3_2_3_MajoritiyElement {
+public class P_3_2_3_MajorityElement {
     public int majorityElement(int[] nums) {
         int freq = 1;
         int curr = nums[0];

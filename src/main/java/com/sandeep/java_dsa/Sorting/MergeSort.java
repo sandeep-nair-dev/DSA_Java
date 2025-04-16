@@ -51,7 +51,7 @@ public class MergeSort {
 //        }
         System.out.println(Arrays.toString(arr));
         mergeSort(arr, 0, arr.length - 1);
-        System.out.println("After com.sandeep.java_dsa.Sorting: ");
+        System.out.println("After Sorting: ");
         System.out.print(Arrays.toString(arr));
     }
 }
