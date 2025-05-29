@@ -20,6 +20,12 @@ public class P_3_2_10_LongestConsequenceSequence {
         System.out.println("The longest consecutive sequence is " + optimalAns);
     }
 
+    /*
+        Optimal Solution: Only if the map is unordered, dont have collisions hence take O(1) time to find. If It has collisions and take O(N) then it take log n and here betterSoln becomes better than this
+        Considering it takes O(1) to find, and no collisions
+            TC -> O(N) + O(2N)
+            SC -> O(N)
+     */
     private static int optimalLongestSuccessiveElements(int[] a) {
         Set<Integer> set = new HashSet<>();
         int longest = 1;
@@ -40,6 +46,11 @@ public class P_3_2_10_LongestConsequenceSequence {
         return longest;
     }
 
+    /*
+        Better Solution:
+            TC -> O(nlogn) + O(n)
+            SC -> O(1);
+     */
     private static int betterLongestSuccessiveElements(int[] a) {
         Arrays.sort(a);
         int maxi = 1;

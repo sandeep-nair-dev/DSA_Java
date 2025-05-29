@@ -2,7 +2,10 @@ package com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step3_Arrays.Lec_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * <b>Problem Statement</b>
+ * <p>Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's. You must do it in place.</p>
+ */
 public class P_3_2_11_SetMatrixZero {
     static ArrayList<ArrayList<Integer>> OptimalZeroMatrix(ArrayList<ArrayList<Integer>> matrix, int n, int m) {
         // int[] row = new int[n]; --> matrix[..][0]

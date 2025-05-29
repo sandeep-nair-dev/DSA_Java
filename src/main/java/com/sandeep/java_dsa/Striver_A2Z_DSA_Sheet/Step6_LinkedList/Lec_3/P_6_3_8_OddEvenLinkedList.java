@@ -1,19 +1,11 @@
 package com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step6_LinkedList.Lec_3;
 
+import com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step6_LinkedList.ListNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class P_6_3_8_OddEvenLinkedList {
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 
     static ListNode head, tail; // head and tail of the LinkedList
 
@@ -21,7 +13,7 @@ public class P_6_3_8_OddEvenLinkedList {
     {
         ListNode curr = head;
         for (; curr != null; curr = curr.next)
-            System.out.print(curr.val + "-->");
+            System.out.print(curr.data + "-->");
         System.out.println("null");
     }
 
@@ -40,32 +32,31 @@ public class P_6_3_8_OddEvenLinkedList {
         List<Integer> list = new ArrayList<>();
         ListNode temp = head;
         while (temp != null && temp.next != null) {
-            list.add(temp.val);
+            list.add(temp.data);
             temp = temp.next.next;
         }
         if (temp != null) {
-            list.add(temp.val);
+            list.add(temp.data);
         }
 
         temp = head.next;
 
         while (temp != null && temp.next != null) {
-            list.add(temp.val);
+            list.add(temp.data);
             temp = temp.next.next;
         }
         if (temp != null) {
-            list.add(temp.val);
+            list.add(temp.data);
         }
 
         temp = head;
         int i = 0;
         while (temp != null) {
-            temp.val = list.get(i);
+            temp.data = list.get(i);
             i++;
             temp = temp.next;
         }
         return head;
-
     }
 
     /*
