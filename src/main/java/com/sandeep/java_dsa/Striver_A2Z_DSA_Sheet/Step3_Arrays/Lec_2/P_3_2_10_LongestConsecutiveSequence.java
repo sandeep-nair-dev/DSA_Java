@@ -8,7 +8,7 @@ import java.util.Set;
 Longest Consecutive Sequence in an Array
 Problem Statement: You are given an array of ‘N’ integers. You need to find the length of the longest sequence which contains the consecutive elements.
  */
-public class P_3_2_10_LongestConsequenceSequence {
+public class P_3_2_10_LongestConsecutiveSequence {
 
     public static void main(String[] args) {
         int[] a = {100, 200, 1, 2, 3, 4};

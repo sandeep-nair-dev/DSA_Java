@@ -32,7 +32,7 @@ public class P_7_2_3_PrintAllSubsequences_PowerSet {
         recursion(index + 1, input, subseq, res);
         subseq = subseq.substring(0, subseq.length() - 1);
         recursion(index + 1, input, subseq, res);
-        System.out.println();
+//        System.out.println();
     }
 
     public static List<String> powerSet(String s) {

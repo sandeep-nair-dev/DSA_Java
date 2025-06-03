@@ -60,7 +60,7 @@ public class P_3_2_8_Next_Permutation {
     }
 
 
-    // Same as optimal solution, just that integer arrays is used here instead of list
+    // Same as optimal solutionOptimal, just that integer arrays is used here instead of list
     public static void nextPermutation(int[] nums) {
         int n = nums.length;
         int index = -1;

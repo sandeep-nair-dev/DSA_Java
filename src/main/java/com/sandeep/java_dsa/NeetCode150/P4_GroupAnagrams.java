@@ -1,11 +1,15 @@
-package com.sandeep.java_dsa.LeetcodeQuestions;
+package com.sandeep.java_dsa.NeetCode150;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class P49_GroupAnagrams {
+
+/**
+ *  * <h3><b>Problem Statement....Leetcode 49</b></h3>
+ */
+public class P4_GroupAnagrams {
     /*
         My Soln:
         TC-> O(n *mlogm)
@@ -42,18 +46,19 @@ public class P49_GroupAnagrams {
             for (char c : charArray) {
                 count[c - 'a']++;
             }
-            StringBuilder frequencyStringBuilder = new StringBuilder();
-            for (int i = 0; i < count.length; i++) {
-                if (count[i] > 0) {
-                    frequencyStringBuilder.append((char) ('a' + i));
-                    frequencyStringBuilder.append(count[i]);
-                }
-            }
-            String frequencyString = frequencyStringBuilder.toString();
-            if (map.containsKey(frequencyString)) {
-                map.get(frequencyString).add(s);
+            String key = Arrays.toString(count);
+//            StringBuilder frequencyStringBuilder = new StringBuilder();
+//            for (int i = 0; i < count.length; i++) {
+//                if (count[i] > 0) {
+//                    frequencyStringBuilder.append((char) ('a' + i));
+//                    frequencyStringBuilder.append(count[i]);
+//                }
+//            }
+//            String key = frequencyStringBuilder.toString();
+            if (map.containsKey(key)) {
+                map.get(key).add(s);
             } else {
-                map.put(frequencyString, new ArrayList<>(Arrays.asList(s)));
+                map.put(key, new ArrayList<>(Arrays.asList(s)));
             }
         });
         return map.values().stream().toList();

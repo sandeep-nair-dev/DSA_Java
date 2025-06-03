@@ -22,7 +22,7 @@ public class P4_1_10_MinInRotatedSortedArray {
 
                 // Eliminate left half:
                 low = mid + 1;
-
+`
             } else { //if right part is sorted:
 
                 // keep the minimum:

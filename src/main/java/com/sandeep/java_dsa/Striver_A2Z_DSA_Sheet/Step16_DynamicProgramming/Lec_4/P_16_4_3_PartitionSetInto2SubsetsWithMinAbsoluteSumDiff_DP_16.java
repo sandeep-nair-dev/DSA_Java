@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class P_16_4_3_PartitionSetInto2SubsetsWithMinAbsoluteSumDiff_DP_16 {
     /*
-     Provided solution works only in case of positive elements....
-     For the leetcode problem, it might have negative elements too and requires the size of subsets to be equal, so a different solution will be used
+     Provided solutionOptimal works only in case of positive elements....
+     For the leetcode problem, it might have negative elements too and requires the size of subsets to be equal, so a different solutionOptimal will be used
      */
 
 

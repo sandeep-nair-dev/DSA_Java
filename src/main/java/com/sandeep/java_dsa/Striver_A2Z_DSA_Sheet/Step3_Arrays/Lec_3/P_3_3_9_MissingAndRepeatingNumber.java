@@ -12,7 +12,7 @@ public class P_3_3_9_MissingAndRepeatingNumber {
      */
 
     /*
-        Better solution:
+        Better solutionOptimal:
         TC -> O(N)+O(N)
         SC -> O(N)
      */

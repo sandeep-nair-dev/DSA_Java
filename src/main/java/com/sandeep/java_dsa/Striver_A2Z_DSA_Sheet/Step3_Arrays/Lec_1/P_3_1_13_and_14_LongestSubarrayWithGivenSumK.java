@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class P_3_1_13_and_14_LongestSubarrayWithGivenSumK {
 
-    // best solution if 0 or negative is present
+    // best solutionOptimal if 0 or negative is present
     public static int betterSolution(int[] a, long k) {
         // Write your code here
         int n = a.length;
