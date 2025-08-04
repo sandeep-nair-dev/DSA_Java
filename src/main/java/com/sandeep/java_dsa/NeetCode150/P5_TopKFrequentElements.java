@@ -5,12 +5,11 @@ import java.util.*;
 
 /**
  * <h3><b>Problem Statement....Leetcode 347</b></h3>
- * <p>Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.<br><br>
+ * <p>Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
  * <p>
  * Example 1:<br>
- * <p>
  * Input: nums = [1,1,1,2,2,3], k = 2<br>
- * Output: [1,2]<br><br>
+ * Output: [1,2]
  * <p>
  * Example 2:<br>
  * Input: nums = [1], k = 1<br>

@@ -1,11 +1,11 @@
-package com.sandeep.java_dsa.Striver_A2Z_DSA_Sheet.Step6_LinkedList;
+package com.sandeep.java_dsa.NeetCode150.Model;
 
 public class ListNode {
     public int data;
     public ListNode next;
 
-    public ListNode(int data){
-        this.data =data;
+    public ListNode(int data) {
+        this.data = data;
         this.next=null;
     }
 

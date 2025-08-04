@@ -3,7 +3,8 @@ package com.sandeep.java_dsa.NeetCode150;
 public class P14_TrappingRainwater {
 
     /**
-     * Approach: for every i we check how much blocks can be filled with water. Water filled at particular index = Min(max height to left of index, max height to right of index) - current index height
+     * Approach: for every i we check how much blocks can be filled with water.
+     * Water filled at particular index = Min(max height to left of index, max height to right of index) - current index height
      * TC -> O(n)
      * SC -> O(n)
      */
@@ -30,6 +31,7 @@ public class P14_TrappingRainwater {
 
     /**
      * Approach: Same approach, just not using arrays to store mins and calculating directly. We have 2 pointer left and right...and we keep track of maxLeft and maxRight<br>
+     * in the formula also, we were taking min(lmax, rmax) which means we only need one, that is lesser
      * <ul>
      * <li>if(maxLeft < maxRight):<br>
      *      we move left index, update the left max and then add the (leftMax-current index height) to result

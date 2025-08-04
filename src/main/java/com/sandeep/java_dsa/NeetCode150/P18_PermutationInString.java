@@ -1,6 +1,27 @@
 package com.sandeep.java_dsa.NeetCode150;
 
-import java.util.HashMap;
+/**
+ * <h5><b>Permutation in String</b></h5>
+ * <p>
+ * You are given two strings {@code s1} and {@code s2}.
+ * <br>
+ * Return {@code true} if {@code s2} contains a permutation of {@code s1}, or {@code false} otherwise.
+ * That means if a permutation of {@code s1} exists as a substring of {@code s2}, then return {@code true}.
+ * <p>
+ * Both strings consist only of lowercase English letters.
+ * <p>
+ * <b>Example 1:</b><br>
+ * Input: {@code s1 = "abc"}, {@code s2 = "lecabee"}<br>
+ * Output: {@code true}<br>
+ * Explanation: The substring {@code "cab"} is a permutation of {@code "abc"} and is present in {@code "lecabee"}.
+ * <p>
+ * <b>Example 2:</b><br>
+ * Input: {@code s1 = "abc"}, {@code s2 = "lecaabee"}<br>
+ * Output: {@code false}
+ * <p>
+ * <b>Constraints:</b><br>
+ * {@code 1 <= s1.length, s2.length <= 1000}
+ */
 
 public class P18_PermutationInString {
 
