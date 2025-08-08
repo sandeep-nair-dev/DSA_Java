@@ -49,7 +49,7 @@ public class P17_LongestRepeatingCharacterReplacement {
      * SC-> O(m)
      * m is total no of unique characters in the string
      *
-     * For each unique character we are traversing the whole array to check at each point windowSize - maxFreqCount <k and if yes then we are considering that for result otherwise we are moving the letf pointer and if character at left pointer is current pointer then decreasing the count too;
+     * For each unique character we are traversing the whole array to check at each point windowSize - maxFreqCount <k and if yes then we are considering that for result otherwise we are moving the left pointer and if character at left pointer is current pointer then decreasing the count too;
      */
     public static int solutionOptimal(String s, int k){
         int res=0;

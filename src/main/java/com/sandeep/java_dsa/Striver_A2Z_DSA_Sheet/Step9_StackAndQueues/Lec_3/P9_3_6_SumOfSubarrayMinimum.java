@@ -27,6 +27,10 @@ public class P9_3_6_SumOfSubarrayMinimum {
      * <p>
      * Edge case: [1,1]...in this if we use the formula we get wrong answer because [1,1] is considered as sub arrays of both 1's. So to avoid this, we only use one of the following:
      * Either if no nse then set as n or if no pse then set as -1
+     *
+     *
+     * TC-> O(5N)
+     * SC-> O(5N)
      */
 
     private static int[] findNextSmallerElementIndexes(int[] arr) {
@@ -72,7 +76,7 @@ public class P9_3_6_SumOfSubarrayMinimum {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{3, 1, 2, 4};
+        int[] arr = new int[]{1,2,3};
         System.out.println(sumOfSubarrayMinimum_Bruteforce(arr));
         System.out.println(sumOfSubArrayMinimum_Optimal(arr));
     }
