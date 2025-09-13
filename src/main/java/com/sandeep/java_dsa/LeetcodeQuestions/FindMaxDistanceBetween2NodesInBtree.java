@@ -1,5 +1,9 @@
 package com.sandeep.java_dsa.LeetcodeQuestions;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+
 public class FindMaxDistanceBetween2NodesInBtree {
     static class Node{
         int data;
