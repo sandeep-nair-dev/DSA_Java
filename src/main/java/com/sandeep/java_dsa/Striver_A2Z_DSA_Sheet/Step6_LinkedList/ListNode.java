@@ -13,4 +13,13 @@ public class ListNode {
         this.data = data;
         this.next = next;
     }
+
+    public void print(){
+        ListNode ptr = this;
+        while (ptr!=null){
+            System.out.print(ptr.data + " -> ");
+            ptr=ptr.next;
+        }
+        System.out.println("null");
+    }
 }
