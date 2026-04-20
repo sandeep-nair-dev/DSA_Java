@@ -6,6 +6,7 @@ public class ImplementationMain {
 
     public static void main(String[] args) throws Exception {
 
+        // Minheap ensures that the smallest element is at the top. It doesn't guarantee that the whole dataset is in sorted order.
         System.out.println("------------MIN HEAP--------------");
         MinHeap<Integer> minHeap = new MinHeap<>();
 
