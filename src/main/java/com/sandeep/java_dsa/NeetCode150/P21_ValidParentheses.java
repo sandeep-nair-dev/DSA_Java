@@ -17,7 +17,6 @@ public class P21_ValidParentheses {
             if (!closeToOpenMapping.containsKey(curr)) {
                 stack.push(curr);
             } else {
-
                 if (!stack.isEmpty() && stack.peek() == closeToOpenMapping.get(curr)) {
                     stack.pop();
                 } else {

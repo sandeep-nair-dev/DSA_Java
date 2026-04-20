@@ -34,10 +34,13 @@ public class P40_CopyLinkedListWithRandomPointer {
         Map<ListNodeWithRandomPointer, ListNodeWithRandomPointer> nodeMap = new HashMap<>();
         ListNodeWithRandomPointer temp = head;
         while (temp != null) {
-            nodeMap.put(temp, new ListNodeWithRandomPointer(temp.data, temp.next));
+            nodeMap.put(temp, new ListNodeWithRandomPointer(temp.data));
             temp = temp.next;
         }
-        nodeMap.forEach((k, v) -> v.random = nodeMap.get(k.random));
+        nodeMap.forEach((k, v) -> {
+            v.next = nodeMap.get(k.next);
+            v.random = nodeMap.get(k.random);
+        });
         return nodeMap.get(head);
     }
 

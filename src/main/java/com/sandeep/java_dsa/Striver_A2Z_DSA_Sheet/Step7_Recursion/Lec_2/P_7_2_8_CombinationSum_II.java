@@ -35,7 +35,7 @@ public class P_7_2_8_CombinationSum_II {
         }
 
         for (int i = index; i < candidates.length; i++) {
-            if (i > index && candidates[i] == candidates[i - 1]) continue;
+            if (i > index && candidates[i] == candidates[i - 1]) continue;      //skipping duplicate elements
             if (candidates[i] > target) break;
 
             subseq.add(candidates[i]);
@@ -46,8 +46,11 @@ public class P_7_2_8_CombinationSum_II {
 
     public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
+        HashSet<List<Integer>> hashSet = new HashSet<>();
         Arrays.sort(candidates);
+//        recursion(0, candidates, new ArrayList<>(), hashSet, target);
         recursionOptimized(0, candidates, new ArrayList<>(), result, target);
+//        return hashSet.stream().toList();
         return result;
     }
 

@@ -1,4 +1,4 @@
-package com.sandeep.java_dsa.Implementations.Heap;
+package com.sandeep.java_dsa.DS_ImplementationsAndLearnings.Heaps;
 
 import java.util.List;
 

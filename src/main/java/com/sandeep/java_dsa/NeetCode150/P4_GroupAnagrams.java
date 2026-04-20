@@ -58,7 +58,7 @@ public class P4_GroupAnagrams {
             if (map.containsKey(key)) {
                 map.get(key).add(s);
             } else {
-                map.put(key, new ArrayList<>(Arrays.asList(s)));
+                map.put(key, new ArrayList<>(List.of(s)));
             }
         });
         return map.values().stream().toList();
