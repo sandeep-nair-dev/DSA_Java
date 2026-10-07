@@ -6,7 +6,6 @@ public class P49_BalancedBinaryTree {
 
     private static int checkBinaryTreeBalanced(Node root, boolean[] balanced){
         if(root==null || !balanced[0]) return 0;
-        int rootval = root.val;
 
         int leftHeight = checkBinaryTreeBalanced(root.left, balanced);
         int rightHeight = checkBinaryTreeBalanced(root.right, balanced);
