@@ -382,49 +382,91 @@ public class playground {
 
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
-        int l=0;
-        int maxCount=0;
-        for(int r=0;r<s.length();r++){
-            if(map.containsKey(s.charAt(r))){
-                maxCount = Math.max(maxCount, r-l);
-                l=Math.max(map.get(s.charAt(r))+1, l);
+        int l = 0;
+        int maxCount = 0;
+        for (int r = 0; r < s.length(); r++) {
+            if (map.containsKey(s.charAt(r))) {
+                maxCount = Math.max(maxCount, r - l);
+                l = Math.max(map.get(s.charAt(r)) + 1, l);
             }
-            map.put(s.charAt(r),r);
+            map.put(s.charAt(r), r);
         }
-        maxCount = Math.max(maxCount, s.length()-l);
+        maxCount = Math.max(maxCount, s.length() - l);
         return maxCount;
     }
 
     public int characterReplacement(String s, int k) {
         HashSet<Character> charSet = new HashSet<>();
-        int longest=0;
-        for(Character c: s.toCharArray()){
+        int longest = 0;
+        for (Character c : s.toCharArray()) {
             charSet.add(c);
         }
-        for(Character c: charSet){
-            int l=0;
-            int diff=0;
-            for(int r=0;r<s.length();r++){
-                if(s.charAt(r)!=c){
+        for (Character c : charSet) {
+            int l = 0;
+            int diff = 0;
+            for (int r = 0; r < s.length(); r++) {
+                if (s.charAt(r) != c) {
                     diff++;
                 }
-                while (diff>k){
-                    if(s.charAt(l)!=c){
+                while (diff > k) {
+                    if (s.charAt(l) != c) {
                         diff--;
                     }
                     l++;
                 }
-                longest = Math.max(longest, r-l+1);
+                longest = Math.max(longest, r - l + 1);
             }
         }
         return longest;
+    }
+
+    public boolean checkInclusion(String s1, String s2) {
+        if (s1.length() > s2.length()) return false;
+
+        int[] f1 = new int[26];
+        int[] f2 = new int[26];
+
+        for (Character c : s1.toCharArray()) {
+            f1[c - 'a']++;
+        }
+
+        for (int i = 0; i < s1.length(); i++) {
+            f2[s2.charAt(i) - 'a']++;
+        }
+        int matches = 0;
+        for (int i = 0; i < 26; i++) {
+            if (f1[i] == f2[i]) matches++;
+        }
+
+
+        int l = 0;
+        for (int i = s1.length(); i < s2.length(); i++) {
+            String curr = s2.substring(l, i);
+            if (matches == 26) return true;
+
+            int incIndex = s2.charAt(i) - 'a';
+            int decIndex = s2.charAt(l) - 'a';
+            l++;
+
+            f2[incIndex]++;
+            if (f1[incIndex] == f2[incIndex]) {
+                matches++;
+            } else if (f1[incIndex] + 1 == f2[incIndex]) {
+                matches--;
+            }
+
+            f2[decIndex]--;
+            if (f1[decIndex] == f2[decIndex]) matches++;
+            else if (f1[decIndex] - 1 == f2[decIndex]) matches--;
+        }
+
+        return matches == 26;
     }
 
 
     public static void main(String[] args) {
         playground playground = new playground();
 
-        String s = "ABAB";
-        System.out.println(playground.characterReplacement(s, 2));
+        System.out.println(playground.checkInclusion("ab", "eidbaooo"));
     }
 }
