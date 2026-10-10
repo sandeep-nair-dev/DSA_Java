@@ -463,10 +463,100 @@ public class playground {
         return matches == 26;
     }
 
+    static boolean compareHashMap(HashMap<Character, Integer> m1, HashMap<Character, Integer> m2) {
+        for (Map.Entry<Character, Integer> e : m1.entrySet()) {
+            if (!m2.containsKey(e.getKey()) || m2.get(e.getKey()) < e.getValue()) return false;
+        }
+        return true;
+    }
+
+    public String minWindow(String s, String t) {
+        if (s.length() < t.length()) return "";
+
+        HashMap<Character, Integer> sMap = new HashMap<>();
+        HashMap<Character, Integer> tMap = new HashMap<>();
+        String minRes = s;
+        boolean matches = false;
+
+        for (Character c : t.toCharArray()) {
+            tMap.put(c, tMap.getOrDefault(c, 0) + 1);
+        }
+        int l = 0, r = 0;
+
+        for (; r < t.length(); r++) {
+            sMap.put(s.charAt(r), sMap.getOrDefault(s.charAt(r), 0) + 1);
+        }
+
+        while (r < s.length()) {
+            if (compareHashMap(tMap, sMap)) {
+                matches = true;
+                if (r - l < minRes.length()) minRes = s.substring(l, r);
+                sMap.put(s.charAt(l), sMap.get(s.charAt(l)) - 1);
+                l++;
+            } else {
+                sMap.put(s.charAt(r), sMap.getOrDefault(s.charAt(r), 0) + 1);
+                r++;
+            }
+        }
+
+        while (compareHashMap(tMap, sMap)) {
+            matches = true;
+            String substring = s.substring(l, r);
+            if (substring.length() < minRes.length()) minRes = substring;
+            sMap.put(s.charAt(l), sMap.get(s.charAt(l)) - 1);
+            l++;
+        }
+
+        return matches ? minRes : "";
+    }
+
+    public String minWindowOptimised(String s, String t) {
+        if (s.length() < t.length()) return "";
+
+        HashMap<Character, Integer> sMap = new HashMap<>();
+        HashMap<Character, Integer> tMap = new HashMap<>();
+
+
+        for (Character c : t.toCharArray()) {
+            tMap.put(c, tMap.getOrDefault(c, 0) + 1);
+        }
+
+        int minLength = Integer.MAX_VALUE;
+        int[] res = new int[]{-1, -1};
+        int have = 0;
+        int need = tMap.size();
+        int l = 0, r = 0;
+
+        for (; r < s.length(); r++) {
+            char c = s.charAt(r);
+            sMap.put(c, sMap.getOrDefault(c, 0) + 1);
+            if (tMap.containsKey(c) && tMap.get(c).equals(sMap.get(c))) {
+                have++;
+            }
+
+            while (have == need) {
+                if (r - l + 1 < minLength) {
+                    minLength = r - l + 1;
+                    res[0] = l;
+                    res[1] = r;
+                }
+
+                char lc = s.charAt(l);
+                sMap.put(lc, sMap.getOrDefault(lc, 0) - 1);
+                if (tMap.containsKey(lc) && sMap.get(lc) < tMap.get(lc)) {
+                    have--;
+                }
+                l++;
+            }
+        }
+
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(res[0], res[1] + 1);
+    }
+
 
     public static void main(String[] args) {
         playground playground = new playground();
 
-        System.out.println(playground.checkInclusion("ab", "eidbaooo"));
+        System.out.println(playground.minWindow("OUZODYXAZV", "XYZ"));
     }
 }
