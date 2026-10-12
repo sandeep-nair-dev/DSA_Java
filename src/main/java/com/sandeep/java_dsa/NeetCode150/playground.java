@@ -553,10 +553,72 @@ public class playground {
         return minLength == Integer.MAX_VALUE ? "" : s.substring(res[0], res[1] + 1);
     }
 
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        int[] res = new int[nums.length-k+1];
+        for(int i=0;i<k;i++){
+            pq.add(nums[i]);
+        }
+        int l=0;
+        res[0] = pq.peek();
+        int index=1;
+
+        for(int r=k;r<nums.length;r++){
+            pq.remove(nums[l]);
+            pq.add(nums[r]);
+            res[index] = pq.peek();
+            l++;
+            index++;
+        }
+        return res;
+    }
+
+    public int[] maxSlidingWindowDeque(int[] nums, int k) {
+        Deque<Integer> deque  = new LinkedList<>();
+        int[] result = new int[nums.length-k+1];
+        int l=0, r=0;
+
+        while (r<nums.length){
+            while (!deque.isEmpty() && nums[deque.getLast()]<nums[r]){
+                deque.removeLast();
+            }
+            deque.addLast(r);
+
+            if(l> deque.getFirst()){
+                deque.removeFirst();
+            }
+
+            if((r+1)>=k){
+                result[l] = nums[deque.getFirst()];
+                l++;
+            }
+            r++;
+        }
+        return result;
+    }
+
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')','(');
+        map.put(']','[');
+        map.put('}','{');
+
+        for (Character c: s.toCharArray()){
+            if(map.containsKey(c)){
+                if(stack.isEmpty() || !stack.pop().equals(map.get(c))){
+                    return false;
+                }
+            }else{
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+
 
     public static void main(String[] args) {
         playground playground = new playground();
-
-        System.out.println(playground.minWindow("OUZODYXAZV", "XYZ"));
+        System.out.println(playground.isValid("()"));
     }
 }
