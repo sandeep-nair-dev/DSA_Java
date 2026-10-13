@@ -46,6 +46,7 @@ public class P25_DailyTemperatures {
 
     /**
      * Using stack (monotonic decreasing stack)
+     * left to right
      * TC -> O(n)
      * SC -> O(n)
      */
@@ -62,9 +63,29 @@ public class P25_DailyTemperatures {
         return res;
     }
 
+    /**
+     * Using stack (monotonic decreasing stack)
+     * right to left
+     * TC -> O(n)
+     * SC -> O(n)
+     */
+    static int[] dailyTemperatures_AlsoBetter(int[] temperatures) {
+        int[] res = new int[temperatures.length];
+        Stack<int[]> stack = new Stack<>();
+        for (int i = temperatures.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && temperatures[i] >= stack.peek()[0]) {
+                stack.pop();
+            }
+            res[i] = stack.isEmpty() ? 0 : stack.peek()[1] - i;
+            stack.push(new int[]{temperatures[i], i});
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[]{30,38,30,36,35,40,28};
-        System.out.println("Result (Brute): " + Arrays.toString(solutionBrute(arr)));
+        System.out.println("Result (Brute) : " + Arrays.toString(solutionBrute(arr)));
         System.out.println("Result (Better): " + Arrays.toString(solutionBetter(arr)));
+        System.out.println("Result (Better): " + Arrays.toString(dailyTemperatures_AlsoBetter(arr)));
     }
 }
