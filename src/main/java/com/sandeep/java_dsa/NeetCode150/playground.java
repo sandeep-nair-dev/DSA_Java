@@ -1,6 +1,7 @@
 package com.sandeep.java_dsa.NeetCode150;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class playground {
 
@@ -629,11 +630,49 @@ public class playground {
         return res;
     }
 
+    public int carFleet(int target, int[] position, int[] speed) {
+        List<int[]> list = new ArrayList<>();
+        int n = position.length;
+        int fleet=0;
+        AtomicInteger reached= new AtomicInteger();
+        for(int i=0;i<n;i++){
+            list.add(new int[]{position[i], speed[i]});
+        }
+
+        while (reached.get() <list.size()){
+            list.sort((a,b) -> b[0]-a[0]);
+            for(int i=0;i<list.size();i++){
+                int j=i+1;
+                boolean fleetFormed=false;
+                int pos=list.get(i)[0];
+                int minSpeed = list.get(i)[1];
+                while (j<list.size() && list.get(j)[0]==list.get(i)[0]){
+                    minSpeed = Math.min(minSpeed, list.get(j)[1]);
+                    j++;
+                }
+                int k=i;
+                while (k<list.size() && k<j){
+                    list.remove(list.get(k));
+                    k++;
+                    fleetFormed=true;
+                }
+                list.add(new int[]{pos, minSpeed});
+
+                list.forEach(t-> {
+                    if(t[0]<target) t[0]+=t[1];
+                });
+                list.forEach(t-> {
+                    if(t[0]>=target) reached.getAndIncrement();
+                });
+                if(fleetFormed) fleet++;
+            }
+        }
+        return fleet;
+    }
+
 
     public static void main(String[] args) {
         playground playground = new playground();
-        int[] temperatures = new int[]{73, 74, 75, 71, 69, 72, 76, 73};
-        System.out.println(Arrays.toString(playground.dailyTemperatures(temperatures)));
-
+        System.out.println(playground.carFleet(12, new int[]{10,8,0,5,3}, new int[]{2,4,1,1,3}));
     }
 }
