@@ -12,8 +12,8 @@ public class P30_KokoEatingBananas {
 
     private static int findBananasPerHour(int[] piles, int hours) {
         int lo = 1;
-        int hi = Integer.MIN_VALUE;
-        int ans = 0;
+        int hi = Integer.MIN_VALUE; // or         int hi = Arrays.stream(piles).max().getAsInt();
+        int ans = hi;
         for (int pile : piles) {
             hi = Math.max(hi, pile);
         }
