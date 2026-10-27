@@ -695,9 +695,133 @@ public class playground {
         return res;
     }
 
+    public int findMin(int[] nums) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] < nums[hi]) {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return nums[lo];
+    }
+
+    public int search(int[] nums, int target) {
+        int lo = 0, hi = nums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] == target) return mid;
+
+            if (nums[lo] <= nums[mid]) {
+                if (target > nums[mid] || target < nums[lo]) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid - 1;
+                }
+            } else {
+                if (target < nums[mid] || target > nums[hi]) {
+                    hi = mid - 1;
+                } else {
+                    lo = mid + 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    static class TimeMap {
+
+        class Pair {
+            private String val;
+            private int timestamp;
+
+            public String getVal() {
+                return val;
+            }
+
+            public void setVal(String val) {
+                this.val = val;
+            }
+
+            public int getTimestamp() {
+                return timestamp;
+            }
+
+            public void setTimestamp(int timestamp) {
+                this.timestamp = timestamp;
+            }
+
+            Pair(String val, int timestamp) {
+                this.val = val;
+                this.timestamp = timestamp;
+            }
+        }
+
+        Map<String, List<Pair>> map;
+
+        public TimeMap() {
+            map = new HashMap<>();
+        }
+
+        public void set(String key, String value, int timestamp) {
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Pair(value, timestamp));
+        }
+
+        public String get(String key, int timestamp) {
+            String result = "";
+            if (!map.containsKey(key)) return result;
+            else {
+                List<Pair> pairs = map.get(key);
+                int lo = 0, hi = pairs.size() - 1;
+                while (lo <= hi) {
+                    int mid = lo + ((hi - lo) / 2);
+                    int ts = pairs.get(mid).getTimestamp();
+                    String val = pairs.get(mid).getVal();
+                    if (timestamp >= ts) {
+                        result = val;
+                        lo = mid + 1;
+                    } else {
+                        hi = mid - 1;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int i = 0, j = 0;
+        int median1 = 0, median2 = 0;
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        for (int count = 0; count < (n1 + n2) / 2 + 1; count++) {
+            median2 = median1;
+            if (i < n1 && j < n2) {
+                if (nums1[i] <= nums2[j]) {
+                    median1 = nums1[i];
+                    i++;
+                } else {
+                    median1 = nums2[j];
+                    j++;
+                }
+            } else if (i < n1) {
+                median1 = nums1[i];
+                i++;
+            } else {
+                median1 = nums2[j];
+                j++;
+            }
+        }
+        return (n1 + n2) % 2 == 1 ? (double) median1 : (median1 + median2) / 2.0;
+    }
+
 
     public static void main(String[] args) {
         playground playground = new playground();
-        System.out.println(playground.minEatingSpeed(new int[]{312884470}, 968709470));
+//        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
+        System.out.println(playground.findMedianSortedArrays(new int[]{1, 2}, new int[]{3, 4}));
+
     }
 }
