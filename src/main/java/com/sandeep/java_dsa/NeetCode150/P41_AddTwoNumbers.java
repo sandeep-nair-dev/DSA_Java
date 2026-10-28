@@ -13,12 +13,12 @@ public class P41_AddTwoNumbers {
         ListNode temp2 = l2;
 
         while (temp1 != null) {
-            s1.append(temp1.data);
+            s1.append(temp1.val);
             temp1 = temp1.next;
         }
 
         while (temp2 != null) {
-            s2.append(temp2.data);
+            s2.append(temp2.val);
             temp2 = temp2.next;
         }
 
@@ -43,8 +43,8 @@ public class P41_AddTwoNumbers {
         int carry = 0;
 
         while (l1 != null || l2 != null || carry != 0) {
-            int v1 = (l1 != null) ? l1.data : 0;
-            int v2 = (l2 != null) ? l2.data : 0;
+            int v1 = (l1 != null) ? l1.val : 0;
+            int v2 = (l2 != null) ? l2.val : 0;
 
             int val = v1 + v2 + carry;
 

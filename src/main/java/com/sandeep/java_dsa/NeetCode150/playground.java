@@ -1,5 +1,7 @@
 package com.sandeep.java_dsa.NeetCode150;
 
+import com.sandeep.java_dsa.NeetCode150.Model.ListNode;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -815,6 +817,19 @@ public class playground {
             }
         }
         return (n1 + n2) % 2 == 1 ? (double) median1 : (median1 + median2) / 2.0;
+    }
+
+
+    public ListNode reverseList(ListNode head) {
+        ListNode prev=null;
+        ListNode curr=head;
+        while(curr!=null){
+            ListNode temp = curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+        }
+        return prev;
     }
 
 

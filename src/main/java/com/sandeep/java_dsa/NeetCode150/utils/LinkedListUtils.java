@@ -8,7 +8,7 @@ public class LinkedListUtils {
     {
         ListNode curr = head;
         for (; curr != null; curr = curr.next)
-            System.out.print(curr.data + "-->");
+            System.out.print(curr.val + "-->");
         System.out.println("null");
     }
 
