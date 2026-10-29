@@ -1,6 +1,7 @@
 package com.sandeep.java_dsa.NeetCode150;
 
 import com.sandeep.java_dsa.NeetCode150.Model.ListNode;
+import com.sandeep.java_dsa.NeetCode150.utils.LinkedListUtils;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -821,22 +822,139 @@ public class playground {
 
 
     public ListNode reverseList(ListNode head) {
-        ListNode prev=null;
-        ListNode curr=head;
-        while(curr!=null){
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
             ListNode temp = curr.next;
-            curr.next=prev;
-            prev=curr;
-            curr=temp;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
         }
         return prev;
+    }
+
+    public void reorderListQueue(ListNode head) {
+        Deque<ListNode> queue = new ArrayDeque<>();
+        ListNode curr = head;
+        while (curr != null) {
+            queue.offer(curr);
+            curr = curr.next;
+        }
+        ListNode dummyNode = new ListNode(0, null);
+        curr = dummyNode;
+        int idx = 0;
+        while (!queue.isEmpty()) {
+            if (idx % 2 == 0) curr.next = queue.removeFirst();
+            else curr.next = queue.removeLast();
+            curr = curr.next;
+            curr.next = null;
+            idx++;
+        }
+    }
+
+    public void reorderListRecurse(ListNode head) {
+        head=recurse(head, head.next);
+
+    }
+
+    public ListNode recurse(ListNode root, ListNode curr) {
+        if (curr == null) return root;
+
+        root = recurse(root, curr.next);
+        if (root == null) {
+            return null;
+        }
+
+        ListNode temp = null;
+        if (root == curr || root.next == curr) {
+            curr.next = null;
+        } else {
+            temp = root.next;
+            root.next = curr;
+            curr.next = temp;
+        }
+        return temp;
+    }
+
+    public void reverseListOptimal(ListNode head){
+        ListNode fast=head;
+        ListNode slow=head;
+        while (fast!=null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        ListNode secondHead = slow.next;
+        ListNode prev = null;
+        slow.next=null;
+
+        while (secondHead!=null){
+            ListNode temp = secondHead.next;
+            secondHead.next=prev;
+            prev=secondHead;
+            secondHead=temp;
+        }
+
+        ListNode firstHead=head;
+        secondHead=prev;
+        while (secondHead!=null){
+            ListNode tmp1 = firstHead.next;
+            ListNode tmp2=secondHead.next;
+            firstHead.next=secondHead;
+            secondHead.next=tmp1;
+            firstHead=tmp1;
+            secondHead=tmp2;
+        }
+    }
+
+    // TC-> O(N), SC-> O(1)
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        int size=1;
+        ListNode curr=head;
+        while (curr.next!=null){
+            curr=curr.next;
+            size++;
+        }
+        int idxToRemove=size-n;
+        if(idxToRemove==0) return head.next;
+
+        curr=head;
+        int currIdx=1;
+        while (currIdx<idxToRemove){
+            curr=curr.next;
+            currIdx++;
+        }
+        curr.next=curr.next.next;
+        return head;
+    }
+
+    public ListNode removeNthFromEnd2ptr(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode left=dummy;
+        ListNode right=head;
+        while (n>0){
+            right=right.next;
+            n--;
+        }
+        while (right!=null){
+            right=right.next;
+            left=left.next;
+        }
+        left.next=left.next.next;
+        return dummy.next;
     }
 
 
     public static void main(String[] args) {
         playground playground = new playground();
 //        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
-        System.out.println(playground.findMedianSortedArrays(new int[]{1, 2}, new int[]{3, 4}));
+        ListNode head = new ListNode(1, null);
+        LinkedListUtils.insertatLast(head, 2);
+        LinkedListUtils.insertatLast(head, 3);
+        LinkedListUtils.insertatLast(head, 4);
+        LinkedListUtils.insertatLast(head, 5);
+        LinkedListUtils.printList(head);
+        playground.removeNthFromEnd2ptr(head,2);
+        LinkedListUtils.printList(head);
 
     }
 }
