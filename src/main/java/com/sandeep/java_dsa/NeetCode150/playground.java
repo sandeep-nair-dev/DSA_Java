@@ -853,7 +853,7 @@ public class playground {
     }
 
     public void reorderListRecurse(ListNode head) {
-        head=recurse(head, head.next);
+        head = recurse(head, head.next);
 
     }
 
@@ -876,85 +876,217 @@ public class playground {
         return temp;
     }
 
-    public void reverseListOptimal(ListNode head){
-        ListNode fast=head;
-        ListNode slow=head;
-        while (fast!=null && fast.next!=null){
-            fast=fast.next.next;
-            slow=slow.next;
+    public void reverseListOptimal(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
         }
         ListNode secondHead = slow.next;
         ListNode prev = null;
-        slow.next=null;
+        slow.next = null;
 
-        while (secondHead!=null){
+        while (secondHead != null) {
             ListNode temp = secondHead.next;
-            secondHead.next=prev;
-            prev=secondHead;
-            secondHead=temp;
+            secondHead.next = prev;
+            prev = secondHead;
+            secondHead = temp;
         }
 
-        ListNode firstHead=head;
-        secondHead=prev;
-        while (secondHead!=null){
+        ListNode firstHead = head;
+        secondHead = prev;
+        while (secondHead != null) {
             ListNode tmp1 = firstHead.next;
-            ListNode tmp2=secondHead.next;
-            firstHead.next=secondHead;
-            secondHead.next=tmp1;
-            firstHead=tmp1;
-            secondHead=tmp2;
+            ListNode tmp2 = secondHead.next;
+            firstHead.next = secondHead;
+            secondHead.next = tmp1;
+            firstHead = tmp1;
+            secondHead = tmp2;
         }
     }
 
     // TC-> O(N), SC-> O(1)
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        int size=1;
-        ListNode curr=head;
-        while (curr.next!=null){
-            curr=curr.next;
+        int size = 1;
+        ListNode curr = head;
+        while (curr.next != null) {
+            curr = curr.next;
             size++;
         }
-        int idxToRemove=size-n;
-        if(idxToRemove==0) return head.next;
+        int idxToRemove = size - n;
+        if (idxToRemove == 0) return head.next;
 
-        curr=head;
-        int currIdx=1;
-        while (currIdx<idxToRemove){
-            curr=curr.next;
+        curr = head;
+        int currIdx = 1;
+        while (currIdx < idxToRemove) {
+            curr = curr.next;
             currIdx++;
         }
-        curr.next=curr.next.next;
+        curr.next = curr.next.next;
         return head;
     }
 
     public ListNode removeNthFromEnd2ptr(ListNode head, int n) {
         ListNode dummy = new ListNode(0, head);
-        ListNode left=dummy;
-        ListNode right=head;
-        while (n>0){
-            right=right.next;
+        ListNode left = dummy;
+        ListNode right = head;
+        while (n > 0) {
+            right = right.next;
             n--;
         }
-        while (right!=null){
-            right=right.next;
-            left=left.next;
+        while (right != null) {
+            right = right.next;
+            left = left.next;
         }
-        left.next=left.next.next;
+        left.next = left.next.next;
         return dummy.next;
+    }
+
+    static class Node {
+        int val;
+        Node next;
+        Node random;
+
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
+        }
+    }
+
+    public Node copyRandomList_2Pass(Node head) {
+        HashMap<Node, Node> map = new HashMap<>();
+        Node curr = head;
+        while (curr != null) {
+            map.put(curr, new Node(curr.val));
+            curr = curr.next;
+        }
+
+        for (Map.Entry<Node, Node> e : map.entrySet()) {
+            Node key = e.getKey();
+            Node value = e.getValue();
+            value.next = map.get(key.next);
+            value.random = map.get(key.random);
+        }
+
+        return map.get(head);
+    }
+
+    public Node copyRandomList_1Pass(Node head) {
+        HashMap<Node, Node> map = new HashMap<>();
+        map.put(null, null);
+
+        Node curr = head;
+        while (curr != null) {
+            if (!map.containsKey(curr)) {
+                map.put(curr, new Node(0));
+            }
+            map.get(curr).val = curr.val;
+
+            if (!map.containsKey(curr.next)) {
+                map.put(curr.next, new Node(0));
+            }
+            map.get(curr).next = map.get(curr.next);
+
+            if (!map.containsKey(curr.random)) {
+                map.put(curr.random, new Node(0));
+            }
+            map.get(curr).random = map.get(curr.random);
+
+            curr = curr.next;
+        }
+        return map.get(head);
+    }
+
+    public Node copyRandomList_spaceOptimised1(Node head) {
+        if (head == null) return head;
+
+        Node ptr = head;
+        while (ptr != null) {
+            Node newNode = new Node(ptr.val);
+            newNode.next = ptr.next;
+            ptr.next = newNode;
+            ptr = newNode.next;
+        }
+
+        Node newHead = head.next;
+
+        ptr = head;
+        while (ptr != null) {
+            if (ptr.random != null) {
+                ptr.next.random = ptr.random.next;
+            }
+            ptr = ptr.next.next;
+        }
+
+        ptr = head;
+        while (ptr != null) {
+            Node ptr2 = ptr.next;
+            ptr.next = ptr2.next;
+            if (ptr2.next != null) {
+                ptr2.next = ptr2.next.next;
+            }
+            ptr = ptr.next;
+        }
+        return newHead;
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int v1 = l1 != null ? l1.val : 0;
+            int v2 = l2 != null ? l2.val : 0;
+
+            int add = v1 + v2 + carry;
+            carry = add / 10;
+            int val = add % 10;
+
+            curr.next = new ListNode(val);
+            curr = curr.next;
+
+            l1 = l1 != null ? l1.next : null;
+            l2 = l2 != null ? l2.next : null;
+        }
+        return dummy.next;
+    }
+
+    public int findDuplicate(int[] nums) {
+        for(int num: nums){
+            int index=Math.abs(num)-1;
+            if(nums[index]<0){
+                return Math.abs(num);
+            }
+            nums[index]*=-1;
+        }
+        return -1;
+    }
+
+    public int findDuplicate_ll(int[] nums) {
+        int slow=0, fast=0;
+        while (true){
+            slow = nums[slow];
+            fast=nums[nums[fast]];
+            if(slow==fast) break;
+        }
+
+        int slow2=0;
+        while(true){
+            slow=nums[slow];
+            slow2=nums[slow2];
+            if(slow==slow2){
+                return slow;
+            }
+        }
     }
 
 
     public static void main(String[] args) {
         playground playground = new playground();
 //        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
-        ListNode head = new ListNode(1, null);
-        LinkedListUtils.insertatLast(head, 2);
-        LinkedListUtils.insertatLast(head, 3);
-        LinkedListUtils.insertatLast(head, 4);
-        LinkedListUtils.insertatLast(head, 5);
-        LinkedListUtils.printList(head);
-        playground.removeNthFromEnd2ptr(head,2);
-        LinkedListUtils.printList(head);
-
+        System.out.println(playground.findDuplicate_ll(new int[]{1,2,3,2,2}));
     }
 }
