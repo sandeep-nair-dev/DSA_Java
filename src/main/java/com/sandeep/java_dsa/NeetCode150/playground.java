@@ -1055,38 +1055,177 @@ public class playground {
     }
 
     public int findDuplicate(int[] nums) {
-        for(int num: nums){
-            int index=Math.abs(num)-1;
-            if(nums[index]<0){
+        for (int num : nums) {
+            int index = Math.abs(num) - 1;
+            if (nums[index] < 0) {
                 return Math.abs(num);
             }
-            nums[index]*=-1;
+            nums[index] *= -1;
         }
         return -1;
     }
 
     public int findDuplicate_ll(int[] nums) {
-        int slow=0, fast=0;
-        while (true){
+        int slow = 0, fast = 0;
+        while (true) {
             slow = nums[slow];
-            fast=nums[nums[fast]];
-            if(slow==fast) break;
+            fast = nums[nums[fast]];
+            if (slow == fast) break;
         }
 
-        int slow2=0;
-        while(true){
-            slow=nums[slow];
-            slow2=nums[slow2];
-            if(slow==slow2){
+        int slow2 = 0;
+        while (true) {
+            slow = nums[slow];
+            slow2 = nums[slow2];
+            if (slow == slow2) {
                 return slow;
             }
         }
     }
 
 
+    class LRUCache {
+        static class CacheNode {
+            int key;
+            int val;
+            CacheNode prev;
+            CacheNode next;
+
+            public CacheNode(int key, int val) {
+                this.key = key;
+                this.val = val;
+            }
+
+            public CacheNode(int key, int val, CacheNode prev, CacheNode next) {
+                this.key = key;
+                this.val = val;
+                this.prev = prev;
+                this.next = next;
+            }
+        }
+
+        CacheNode head;
+        CacheNode tail;
+        HashMap<Integer, CacheNode> cacheMap;
+        int capacity;
+
+        public LRUCache(int capacity) {
+            cacheMap = new HashMap<>();
+            this.capacity = capacity;
+            this.head = new CacheNode(0, 0);
+            this.tail = new CacheNode(0, 0);
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        private void insert(CacheNode node) {
+            CacheNode recentUsed = tail.prev;
+            recentUsed.next = node;
+            node.prev = recentUsed;
+            node.next = tail;
+            tail.prev = node;
+        }
+
+        private void remove(CacheNode node) {
+            CacheNode prev = node.prev;
+            CacheNode next = node.next;
+            prev.next = next;
+            next.prev = prev;
+        }
+
+        public int get(int key) {
+            if (cacheMap.containsKey(key)) {
+                CacheNode curr = cacheMap.get(key);
+                remove(curr);
+                insert(curr);
+                return curr.val;
+            }
+            return -1;
+        }
+
+        public void put(int key, int value) {
+            if (cacheMap.containsKey(key)) {
+                remove(cacheMap.get(key));
+            }
+            CacheNode newNode = new CacheNode(key, value);
+            cacheMap.put(key, newNode);
+            insert(newNode);
+
+            if (cacheMap.size() > capacity) {
+                CacheNode leastRecentlyUsed = head.next;
+                remove(leastRecentlyUsed);
+                cacheMap.remove(leastRecentlyUsed.key);
+            }
+        }
+    }
+
+    class LRUCache2 {
+        private final Map<Integer, Integer> cache;
+        private final int capacity;
+
+        public LRUCache2(int capacity) {
+            this.capacity = capacity;
+            this.cache = new LinkedHashMap<>(capacity, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+                    return size() > LRUCache2.this.capacity;
+                }
+            };
+        }
+
+        public int get(int key) {
+            return cache.getOrDefault(key, -1);
+        }
+
+        public void put(int key, int value) {
+            cache.put(key, value);
+        }
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        int minNode=0;
+        while (true) {
+            boolean alldone=true;
+            int min=Integer.MAX_VALUE;
+            for (int i = 0; i < lists.length; i++) {
+                if(lists[i]!=null) alldone=false;
+                if (lists[i] != null && lists[i].val < min) {
+                    min = lists[i].val;
+                    minNode = i;
+                }
+            }
+            if(alldone) break;
+            if(curr!=null )curr.next = lists[minNode];
+            curr=lists[minNode];
+            lists[minNode] = lists[minNode].next;
+        }
+        return dummy.next;
+    }
+
+
     public static void main(String[] args) {
         playground playground = new playground();
 //        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
-        System.out.println(playground.findDuplicate_ll(new int[]{1,2,3,2,2}));
+        ListNode head1 = new ListNode(1);
+        ListNode head2 = new ListNode(1);
+        ListNode head3 = new ListNode(2);
+
+        LinkedListUtils.insertatLast(head1,4);
+        LinkedListUtils.insertatLast(head1,5);
+
+        LinkedListUtils.insertatLast(head2,3);
+        LinkedListUtils.insertatLast(head2,4);
+
+        LinkedListUtils.insertatLast(head3, 6);
+
+        ListNode[] list = new ListNode[]{head1, head2, head3};
+
+        LinkedListUtils.printList(head1);
+        LinkedListUtils.printList(head2);
+        LinkedListUtils.printList(head3);
+        ListNode res = playground.mergeKLists(list);
+        LinkedListUtils.printList(res);
     }
 }

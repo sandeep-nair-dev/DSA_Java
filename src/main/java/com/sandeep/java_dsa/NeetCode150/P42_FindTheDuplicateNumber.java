@@ -35,23 +35,6 @@ public class P42_FindTheDuplicateNumber {
         return slow;
     }
 
-    static class LRUCache {
-
-
-
-        public LRUCache(int capacity) {
-
-        }
-
-        public int get(int key) {
-
-        }
-
-        public void put(int key, int value) {
-
-        }
-    }
-
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,2,2};
         System.out.println("Duplicate element: " + findDuplicate_ll(arr));
