@@ -2,41 +2,41 @@ package com.sandeep.java_dsa.NeetCode150.Model;
 
 import java.util.*;
 
-public class Node {
+public class TreeNode {
     public int val;
-    public Node left;
-    public Node right;
+    public TreeNode left;
+    public TreeNode right;
 
     // Constructor to initialize
     // the node with a value
-    public Node(int val) {
+    public TreeNode(int val) {
         this.val = val;
         left = null;
         right = null;
     }
 
-    public static Node createBinaryTree(Integer[] arr) {
+    public static TreeNode createBinaryTree(Integer[] arr) {
         if (arr == null || arr.length == 0) return null;
 
         // Create the root node
-        Node root = new Node(arr[0]);
-        Queue<Node> queue = new LinkedList<>();
+        TreeNode root = new TreeNode(arr[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
 
         int i = 1; // Start from the second element in the array
         while (!queue.isEmpty() && i < arr.length) {
-            Node current = queue.poll();
+            TreeNode current = queue.poll();
 
             // Assign the left child
             if (arr[i] != null) {
-                current.left = new Node(arr[i]);
+                current.left = new TreeNode(arr[i]);
                 queue.add(current.left);
             }
             i++;
 
             // Assign the right child
             if (i < arr.length && arr[i] != null) {
-                current.right = new Node(arr[i]);
+                current.right = new TreeNode(arr[i]);
                 queue.add(current.right);
             }
             i++;
@@ -44,7 +44,7 @@ public class Node {
 
         return root;
     }
-    public static void printTree(Node root) {
+    public static void printTree(TreeNode root) {
         if (root == null) return;
 
         int height = getHeight(root);
@@ -76,26 +76,26 @@ public class Node {
         }
     }
 
-    private static int getHeight(Node root) {
+    private static int getHeight(TreeNode root) {
         if (root == null) return 0;
         return 1 + Math.max(getHeight(root.left), getHeight(root.right));
     }
 
-    private static void fillLevels(Node node, int level, int left, int right, List<List<String>> levels, List<List<String>> links) {
-        if (node == null) return;
+    private static void fillLevels(TreeNode treeNode, int level, int left, int right, List<List<String>> levels, List<List<String>> links) {
+        if (treeNode == null) return;
 
         int mid = (left + right) / 2;
-        levels.get(level).set(mid, Integer.toString(node.val));
+        levels.get(level).set(mid, Integer.toString(treeNode.val));
 
-        if (node.left != null) {
+        if (treeNode.left != null) {
             int leftMid = (left + mid - 1) / 2;
             links.get(level).set(leftMid, "/");
-            fillLevels(node.left, level + 1, left, mid - 1, levels, links);
+            fillLevels(treeNode.left, level + 1, left, mid - 1, levels, links);
         }
-        if (node.right != null) {
+        if (treeNode.right != null) {
             int rightMid = (mid + 1 + right) / 2;
             links.get(level).set(rightMid, "\\");
-            fillLevels(node.right, level + 1, mid + 1, right, levels, links);
+            fillLevels(treeNode.right, level + 1, mid + 1, right, levels, links);
         }
     }
 }

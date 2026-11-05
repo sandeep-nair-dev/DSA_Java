@@ -1,9 +1,7 @@
 package com.sandeep.java_dsa.NeetCode150;
 
-import com.sandeep.java_dsa.NeetCode150.Model.Node;
-import com.sun.source.tree.BreakTree;
+import com.sandeep.java_dsa.NeetCode150.Model.TreeNode;
 
-import javax.swing.tree.TreeNode;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -15,10 +13,10 @@ public class P46_InvertBinaryTree {
         TC-> O(n)
         SC-> O(n)
      */
-    public static Node invertTreeDFSRecursive(Node root) {
+    public static TreeNode invertTreeDFSRecursive(TreeNode root) {
         if(root==null) return root;
 
-        Node temp = root.left;
+        TreeNode temp = root.left;
         root.left=root.right;
         root.right=temp;
 
@@ -32,18 +30,18 @@ public class P46_InvertBinaryTree {
         TC-> O(n)
         SC-> O(n)
      */
-    public static Node invertTreeDFSIterative(Node root){
+    public static TreeNode invertTreeDFSIterative(TreeNode root){
         if(root==null) return null;
-        Stack<Node> stack = new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()){
-            Node node = stack.pop();
-            Node temp = node.left;
-            node.left = node.right;
-            node.right = temp;
+            TreeNode treeNode = stack.pop();
+            TreeNode temp = treeNode.left;
+            treeNode.left = treeNode.right;
+            treeNode.right = temp;
 
-            if(node.left!=null)stack.push(node.left);
-            if(node.right!=null) stack.push(node.right);
+            if(treeNode.left!=null)stack.push(treeNode.left);
+            if(treeNode.right!=null) stack.push(treeNode.right);
         }
         return root;
     }
@@ -53,20 +51,20 @@ public class P46_InvertBinaryTree {
         TC-> O(n)
         SC-> O(n)
      */
-    public static Node invertTreeBFSIterative(Node root) {
+    public static TreeNode invertTreeBFSIterative(TreeNode root) {
         if (root == null) {
             return null;
         }
-        Queue<Node> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            Node node = queue.poll();
-            Node temp = node.left;
-            node.left = node.right;
-            node.right = temp;
+            TreeNode treeNode = queue.poll();
+            TreeNode temp = treeNode.left;
+            treeNode.left = treeNode.right;
+            treeNode.right = temp;
 
-            if (node.left != null) queue.offer(node.left);
-            if (node.right != null) queue.offer(node.right);
+            if (treeNode.left != null) queue.offer(treeNode.left);
+            if (treeNode.right != null) queue.offer(treeNode.right);
         }
         return root;
 
@@ -74,10 +72,10 @@ public class P46_InvertBinaryTree {
 
     public static void main(String[] args) {
         Integer[] arr = new Integer[]{1,2,3,4,5,6,7};
-        Node binaryTree = Node.createBinaryTree(arr);
-        Node.printTree(binaryTree);
+        TreeNode binaryTree = TreeNode.createBinaryTree(arr);
+        TreeNode.printTree(binaryTree);
         System.out.println("----------------------------");
         invertTreeBFSIterative(binaryTree);
-        Node.printTree(binaryTree);
+        TreeNode.printTree(binaryTree);
     }
 }

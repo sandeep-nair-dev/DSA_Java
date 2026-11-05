@@ -1,7 +1,8 @@
 package com.sandeep.java_dsa.NeetCode150;
 
 import com.sandeep.java_dsa.NeetCode150.Model.ListNode;
-import com.sandeep.java_dsa.NeetCode150.utils.LinkedListUtils;
+import com.sandeep.java_dsa.NeetCode150.Model.TreeNode;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1204,28 +1205,145 @@ public class playground {
         return dummy.next;
     }
 
+    public TreeNode invertTree_dfs(TreeNode root) {
+        if(root==null) return root;
 
-    public static void main(String[] args) {
+        if(root.left!=null) invertTree_dfs(root.left);
+        if(root.right!=null) invertTree_dfs(root.right);
+
+        TreeNode temp = root.left;
+        root.left=root.right;
+        root.right=temp;
+
+        return root;
+    }
+
+    public TreeNode invertTree_bfs(TreeNode root) {
+        if(root==null) return root;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            TreeNode curr = queue.poll();
+            TreeNode temp = curr.left;
+            curr.left = curr.right;
+            curr.right=temp;
+            if(curr.left!=null) queue.offer(curr.left);
+            if(curr.right!=null) queue.offer(curr.right);
+        }
+        return root;
+    }
+
+    public TreeNode invertTree_IterativeDfs(TreeNode root) {
+        if(root==null) return root;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            TreeNode curr = stack.pop();
+            TreeNode temp = curr.left;
+            curr.left = curr.right;
+            curr.right=temp;
+
+            if(curr.right!=null) stack.push(curr.right);
+            if(curr.left!=null) stack.push(curr.left);
+        }
+        return root;
+    }
+
+    public int maxDepth_dfs(TreeNode root) {
+        if(root==null) return 0;
+
+        return 1+Math.max(maxDepth_dfs(root.left), maxDepth_dfs(root.right));
+    }
+
+    public int maxDepth_Iterativedfs(TreeNode root) {
+        if(root==null) return 0;
+
+        Stack<Pair<TreeNode, Integer>> stack = new Stack<>();
+        stack.push(Pair.of(root,1));
+        int res=0;
+        while (!stack.isEmpty()){
+            Pair<TreeNode, Integer> top = stack.pop();
+            TreeNode currNode = top.getKey();
+            Integer val = top.getValue();
+            if(currNode!=null){
+                res = Math.max(res, val);
+                if(currNode.left!=null) stack.push(Pair.of(currNode.left,val+1));
+                if(currNode.right!=null) stack.push(Pair.of(currNode.left, val+1));
+            }
+        }
+        return res;
+    }
+
+    private int findHeight(TreeNode root, int[] diameter){
+        if(root==null) return 0;
+
+        int leftHeight = findHeight(root.left, diameter);
+        int rightHeight = findHeight(root.right, diameter);
+
+        diameter[0] = Math.max(diameter[0], leftHeight+rightHeight);
+        return 1+Math.max(leftHeight, rightHeight);
+    }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        int[] diameter = new int[1];
+        findHeight(root, diameter);
+        return diameter[0];
+    }
+
+    private int findHeight2(TreeNode root, boolean[] res){
+        if(root==null) return 0;
+        int leftHeight = findHeight2(root.left, res);
+        int rightHeight = findHeight2(root.right, res);
+
+        if(Math.abs(leftHeight-rightHeight)>1) {
+            res[0]=false;
+        }
+
+        return 1+Math.max(leftHeight, rightHeight);
+    }
+    public boolean isBalanced(TreeNode root) {
+        boolean[] res = new boolean[]{true};
+        findHeight2(root, res);
+        return res[0];
+    }
+
+    public boolean isBalanced_IterativeDFS(TreeNode root){
+        Stack<TreeNode> stack = new Stack<>();
+        Map<TreeNode, Integer> depths = new HashMap<>();
+        TreeNode node=root;
+        TreeNode last=null;
+        while (!stack.isEmpty() || node!=null){
+            if(node != null){
+                stack.push(node);
+                node = node.left;
+            }else{
+                node=stack.peek();
+                if(node.right==null || last==node.right){
+                    node=stack.pop();
+                    int left = depths.getOrDefault(node.left,0);
+                    int right = depths.getOrDefault(node.right,0);
+                    if(Math.abs(left-right)>1) return false;
+                    depths.put(node, 1+Math.max(left, right));
+                    last=node;
+                    node=null;
+                }else{
+                    node=node.right;
+                }
+            }
+        }
+        return true;
+    }
+
+
+        public static void main(String[] args) {
         playground playground = new playground();
 //        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
-        ListNode head1 = new ListNode(1);
-        ListNode head2 = new ListNode(1);
-        ListNode head3 = new ListNode(2);
-
-        LinkedListUtils.insertatLast(head1,4);
-        LinkedListUtils.insertatLast(head1,5);
-
-        LinkedListUtils.insertatLast(head2,3);
-        LinkedListUtils.insertatLast(head2,4);
-
-        LinkedListUtils.insertatLast(head3, 6);
-
-        ListNode[] list = new ListNode[]{head1, head2, head3};
-
-        LinkedListUtils.printList(head1);
-        LinkedListUtils.printList(head2);
-        LinkedListUtils.printList(head3);
-        ListNode res = playground.mergeKLists(list);
-        LinkedListUtils.printList(res);
+            Integer[] arr = new Integer[]{1,2,3,4,5};
+            TreeNode binaryTree = TreeNode.createBinaryTree(arr);
+            TreeNode.printTree(binaryTree);
+            System.out.println(playground.isBalanced(binaryTree));
+            System.out.println(playground.isBalanced_IterativeDFS(binaryTree));
     }
 }
