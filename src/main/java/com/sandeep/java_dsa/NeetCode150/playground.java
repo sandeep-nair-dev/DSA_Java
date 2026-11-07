@@ -1186,104 +1186,104 @@ public class playground {
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = new ListNode(0);
         ListNode curr = dummy;
-        int minNode=0;
+        int minNode = 0;
         while (true) {
-            boolean alldone=true;
-            int min=Integer.MAX_VALUE;
+            boolean alldone = true;
+            int min = Integer.MAX_VALUE;
             for (int i = 0; i < lists.length; i++) {
-                if(lists[i]!=null) alldone=false;
+                if (lists[i] != null) alldone = false;
                 if (lists[i] != null && lists[i].val < min) {
                     min = lists[i].val;
                     minNode = i;
                 }
             }
-            if(alldone) break;
-            if(curr!=null )curr.next = lists[minNode];
-            curr=lists[minNode];
+            if (alldone) break;
+            if (curr != null) curr.next = lists[minNode];
+            curr = lists[minNode];
             lists[minNode] = lists[minNode].next;
         }
         return dummy.next;
     }
 
     public TreeNode invertTree_dfs(TreeNode root) {
-        if(root==null) return root;
+        if (root == null) return root;
 
-        if(root.left!=null) invertTree_dfs(root.left);
-        if(root.right!=null) invertTree_dfs(root.right);
+        if (root.left != null) invertTree_dfs(root.left);
+        if (root.right != null) invertTree_dfs(root.right);
 
         TreeNode temp = root.left;
-        root.left=root.right;
-        root.right=temp;
+        root.left = root.right;
+        root.right = temp;
 
         return root;
     }
 
     public TreeNode invertTree_bfs(TreeNode root) {
-        if(root==null) return root;
+        if (root == null) return root;
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             TreeNode curr = queue.poll();
             TreeNode temp = curr.left;
             curr.left = curr.right;
-            curr.right=temp;
-            if(curr.left!=null) queue.offer(curr.left);
-            if(curr.right!=null) queue.offer(curr.right);
+            curr.right = temp;
+            if (curr.left != null) queue.offer(curr.left);
+            if (curr.right != null) queue.offer(curr.right);
         }
         return root;
     }
 
     public TreeNode invertTree_IterativeDfs(TreeNode root) {
-        if(root==null) return root;
+        if (root == null) return root;
 
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             TreeNode curr = stack.pop();
             TreeNode temp = curr.left;
             curr.left = curr.right;
-            curr.right=temp;
+            curr.right = temp;
 
-            if(curr.right!=null) stack.push(curr.right);
-            if(curr.left!=null) stack.push(curr.left);
+            if (curr.right != null) stack.push(curr.right);
+            if (curr.left != null) stack.push(curr.left);
         }
         return root;
     }
 
     public int maxDepth_dfs(TreeNode root) {
-        if(root==null) return 0;
+        if (root == null) return 0;
 
-        return 1+Math.max(maxDepth_dfs(root.left), maxDepth_dfs(root.right));
+        return 1 + Math.max(maxDepth_dfs(root.left), maxDepth_dfs(root.right));
     }
 
     public int maxDepth_Iterativedfs(TreeNode root) {
-        if(root==null) return 0;
+        if (root == null) return 0;
 
         Stack<Pair<TreeNode, Integer>> stack = new Stack<>();
-        stack.push(Pair.of(root,1));
-        int res=0;
-        while (!stack.isEmpty()){
+        stack.push(Pair.of(root, 1));
+        int res = 0;
+        while (!stack.isEmpty()) {
             Pair<TreeNode, Integer> top = stack.pop();
             TreeNode currNode = top.getKey();
             Integer val = top.getValue();
-            if(currNode!=null){
+            if (currNode != null) {
                 res = Math.max(res, val);
-                if(currNode.left!=null) stack.push(Pair.of(currNode.left,val+1));
-                if(currNode.right!=null) stack.push(Pair.of(currNode.left, val+1));
+                if (currNode.left != null) stack.push(Pair.of(currNode.left, val + 1));
+                if (currNode.right != null) stack.push(Pair.of(currNode.left, val + 1));
             }
         }
         return res;
     }
 
-    private int findHeight(TreeNode root, int[] diameter){
-        if(root==null) return 0;
+    private int findHeight(TreeNode root, int[] diameter) {
+        if (root == null) return 0;
 
         int leftHeight = findHeight(root.left, diameter);
         int rightHeight = findHeight(root.right, diameter);
 
-        diameter[0] = Math.max(diameter[0], leftHeight+rightHeight);
-        return 1+Math.max(leftHeight, rightHeight);
+        diameter[0] = Math.max(diameter[0], leftHeight + rightHeight);
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 
     public int diameterOfBinaryTree(TreeNode root) {
@@ -1292,44 +1292,45 @@ public class playground {
         return diameter[0];
     }
 
-    private int findHeight2(TreeNode root, boolean[] res){
-        if(root==null) return 0;
+    private int findHeight2(TreeNode root, boolean[] res) {
+        if (root == null) return 0;
         int leftHeight = findHeight2(root.left, res);
         int rightHeight = findHeight2(root.right, res);
 
-        if(Math.abs(leftHeight-rightHeight)>1) {
-            res[0]=false;
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            res[0] = false;
         }
 
-        return 1+Math.max(leftHeight, rightHeight);
+        return 1 + Math.max(leftHeight, rightHeight);
     }
+
     public boolean isBalanced(TreeNode root) {
         boolean[] res = new boolean[]{true};
         findHeight2(root, res);
         return res[0];
     }
 
-    public boolean isBalanced_IterativeDFS(TreeNode root){
+    public boolean isBalanced_IterativeDFS(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         Map<TreeNode, Integer> depths = new HashMap<>();
-        TreeNode node=root;
-        TreeNode last=null;
-        while (!stack.isEmpty() || node!=null){
-            if(node != null){
+        TreeNode node = root;
+        TreeNode last = null;
+        while (!stack.isEmpty() || node != null) {
+            if (node != null) {
                 stack.push(node);
                 node = node.left;
-            }else{
-                node=stack.peek();
-                if(node.right==null || last==node.right){
-                    node=stack.pop();
-                    int left = depths.getOrDefault(node.left,0);
-                    int right = depths.getOrDefault(node.right,0);
-                    if(Math.abs(left-right)>1) return false;
-                    depths.put(node, 1+Math.max(left, right));
-                    last=node;
-                    node=null;
-                }else{
-                    node=node.right;
+            } else {
+                node = stack.peek();
+                if (node.right == null || last == node.right) {
+                    node = stack.pop();
+                    int left = depths.getOrDefault(node.left, 0);
+                    int right = depths.getOrDefault(node.right, 0);
+                    if (Math.abs(left - right) > 1) return false;
+                    depths.put(node, 1 + Math.max(left, right));
+                    last = node;
+                    node = null;
+                } else {
+                    node = node.right;
                 }
             }
         }
@@ -1337,13 +1338,55 @@ public class playground {
     }
 
 
-        public static void main(String[] args) {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null || p.val != q.val) return false;
+
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+
+    }
+
+    public boolean isSameTree_IterativeDFS(TreeNode p, TreeNode q) {
+        Stack<TreeNode[]> stack = new Stack<>();
+        stack.push(new TreeNode[]{p, q});
+
+        while (!stack.isEmpty()) {
+            TreeNode[] pop = stack.pop();
+            TreeNode n1 = pop[0];
+            TreeNode n2 = pop[1];
+            if (n1 == null && n2 == null) continue;
+            if (n1 == null || n2 == null || n1.val != n2.val) return false;
+
+            stack.push(new TreeNode[]{n1.left, n2.left});
+            stack.push(new TreeNode[]{n1.right, n2.right});
+        }
+        return true;
+    }
+
+    public boolean isSameTree2(TreeNode p, TreeNode q) {
+        if (p == null && q == null)
+            return true;
+        if (p == null || q == null || p.val != q.val)
+            return false;
+        return isSameTree2(p.left, q.left) && isSameTree2(p.right, q.right);
+    }
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null || subRoot == null)
+            return false;
+        if (root.val == subRoot.val && isSameTree2(root, subRoot)) {
+            return true;
+        }
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    public static void main(String[] args) {
         playground playground = new playground();
 //        System.out.println(playground.search(new int[]{1, 3, 5}, 5));
-            Integer[] arr = new Integer[]{1,2,3,4,5};
-            TreeNode binaryTree = TreeNode.createBinaryTree(arr);
-            TreeNode.printTree(binaryTree);
-            System.out.println(playground.isBalanced(binaryTree));
-            System.out.println(playground.isBalanced_IterativeDFS(binaryTree));
+        Integer[] arr = new Integer[]{1, 2, 3, 4, 5};
+        TreeNode binaryTree = TreeNode.createBinaryTree(arr);
+        TreeNode.printTree(binaryTree);
+        System.out.println(playground.isBalanced(binaryTree));
+        System.out.println(playground.isBalanced_IterativeDFS(binaryTree));
     }
 }
