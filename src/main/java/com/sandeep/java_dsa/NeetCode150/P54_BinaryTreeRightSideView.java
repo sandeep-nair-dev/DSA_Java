@@ -9,9 +9,14 @@ import java.util.Queue;
 
 public class P54_BinaryTreeRightSideView {
 
-    public List<Integer> rightSideView(TreeNode root) {
+    /*
+        Iteration
+        TC -> O(n)
+        SC -> O(n)
+    */
+    public List<Integer> rightSideView_Iteration1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        if(root==null) return result;
+        if (root == null) return result;
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
@@ -26,6 +31,54 @@ public class P54_BinaryTreeRightSideView {
             }
             result.add(node.val);
         }
+        return result;
+    }
+
+    /*
+        Iteration
+        TC -> O(n)
+        SC -> O(n)
+    */
+    public List<Integer> rightSideView_Iteration2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode rightNode = null;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node != null) {
+                    rightNode = node;
+                    queue.add(node.left);
+                    queue.add(node.right);
+                }
+            }
+            if (rightNode != null) result.add(rightNode.val);
+        }
+        return result;
+    }
+
+    /*
+        Recursion
+        TC -> O(n)
+        SC -> O(n)
+    */
+    public void dfs(TreeNode node, List<Integer> result, int depth) {
+        if (node == null) return;
+
+        if (result.size() == depth) {
+            result.add(node.val);
+        }
+        dfs(node.right, result, depth + 1);
+        dfs(node.left, result, depth + 1);
+    }
+
+    public List<Integer> rightSideView_recursion(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        dfs(root, result, 0);
         return result;
     }
 
@@ -63,16 +116,24 @@ public class P54_BinaryTreeRightSideView {
 
         P54_BinaryTreeRightSideView solution = new P54_BinaryTreeRightSideView();
 
-        System.out.println("Test Case 1: " + solution.rightSideView(root1));
+        System.out.println("Test Case 1: " + solution.rightSideView_Iteration1(root1));
+        System.out.println("Test Case 1: " + solution.rightSideView_Iteration2(root1));
+        System.out.println("Test Case 1: " + solution.rightSideView_recursion(root1));
         // Expected: [1, 3, 4]
 
-        System.out.println("Test Case 2: " + solution.rightSideView(root2));
+        System.out.println("Test Case 2: " + solution.rightSideView_Iteration1(root2));
+        System.out.println("Test Case 2: " + solution.rightSideView_Iteration2(root2));
+        System.out.println("Test Case 2: " + solution.rightSideView_recursion(root2));
         // Expected: [1, 2, 3]
 
-        System.out.println("Test Case 3: " + solution.rightSideView(root3));
+        System.out.println("Test Case 3: " + solution.rightSideView_Iteration1(root3));
+        System.out.println("Test Case 3: " + solution.rightSideView_Iteration2(root3));
+        System.out.println("Test Case 3: " + solution.rightSideView_recursion(root3));
         // Expected: []
 
-        System.out.println("Test Case 4: " + solution.rightSideView(root4));
+        System.out.println("Test Case 4: " + solution.rightSideView_Iteration1(root4));
+        System.out.println("Test Case 4: " + solution.rightSideView_Iteration2(root4));
+        System.out.println("Test Case 4: " + solution.rightSideView_recursion(root4));
         // Expected: [1]
     }
 }
